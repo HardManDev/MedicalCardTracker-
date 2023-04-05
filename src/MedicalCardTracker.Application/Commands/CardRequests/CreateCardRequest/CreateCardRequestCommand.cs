@@ -18,6 +18,5 @@ public class CreateCardRequestCommand : IRequest<CardRequestVm>
 
     public string? Description { get; set; }
 
-    public CardRequestStatus Status { get; set; }
     public CardRequestPriority Priority { get; set; }
 }
