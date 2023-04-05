@@ -42,4 +42,8 @@
     <ProjectReference Include="..\MedicalCardTracker.Server.Application\MedicalCardTracker.Server.Application.csproj"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.4"/>
+  </ItemGroup>
+
 </Project>
