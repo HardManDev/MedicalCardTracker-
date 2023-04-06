@@ -4,6 +4,7 @@
 
 using System.Reflection;
 using MedicalCardTracker.Application;
+using MedicalCardTracker.Application.Interfaces;
 using MedicalCardTracker.Application.Mappings;
 using MedicalCardTracker.Database;
 using MedicalCardTracker.Server.Application.Interfaces;
@@ -29,7 +30,7 @@ public class Startup
         services.AddAutoMapper(config =>
         {
             config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-            config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
+            config.AddProfile(new AssemblyMappingProfile(typeof(IMapWith<>).Assembly));
         });
     }
 }

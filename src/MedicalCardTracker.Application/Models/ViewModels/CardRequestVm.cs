@@ -5,11 +5,28 @@
 using AutoMapper;
 using MedicalCardTracker.Application.Interfaces;
 using MedicalCardTracker.Domain.Entities;
+using MedicalCardTracker.Domain.Enums;
 
 namespace MedicalCardTracker.Application.Models.ViewModels;
 
-public class CardRequestVm : CardRequest, IMapWith<CardRequest>
+public class CardRequestVm : IMapWith<CardRequest>
 {
+    public Guid Id { get; set; }
+
+    public string CustomerName { get; set; } = null!;
+    public string TargetAddress { get; set; } = null!;
+
+    public string PatientFullName { get; set; } = null!;
+    public DateOnly? PatientBirthDate { get; set; }
+
+    public string? Description { get; set; }
+
+    public CardRequestStatus Status { get; set; }
+    public CardRequestPriority Priority { get; set; }
+
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+
     public void Mapping(Profile profile)
         => profile.CreateMap<CardRequest, CardRequestVm>();
 }
