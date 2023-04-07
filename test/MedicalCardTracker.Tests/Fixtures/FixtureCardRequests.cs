@@ -12,9 +12,9 @@ public static class FixtureCardRequests
     public static readonly CardRequest FixtureCardRequest = new()
     {
         Id = Guid.NewGuid(),
-        CustomerName = "Miron Nikolaev",
-        TargetAddress = "cab. 101",
-        PatientFullName = "Efrosinia Makarova",
+        CustomerName = "Kondrashkin I. L.",
+        TargetAddress = "cab. 100",
+        PatientFullName = "Poluvetrova Olimpiada Glebovna",
         PatientBirthDate = new DateOnly(1976, 4, 22),
         Description = "this is fixture card request",
         Status = CardRequestStatus.Created,
@@ -26,25 +26,25 @@ public static class FixtureCardRequests
     public static readonly CardRequest FixtureCardRequestForDelete = new()
     {
         Id = Guid.NewGuid(),
-        CustomerName = "Miron Nikolaev",
-        TargetAddress = "cab. 201",
-        PatientFullName = "Nonna Popoa",
+        CustomerName = "Pushkarev N. K.",
+        TargetAddress = "cab. 200",
+        PatientFullName = "Levencov Antrop Alfredovich",
         PatientBirthDate = new DateOnly(1956, 11, 5),
         Description = "this is fixture card request for delete",
         Status = CardRequestStatus.Completed,
         Priority = CardRequestPriority.UnUrgently,
-        CreatedAt = DateTimeOffset.Now,
-        UpdatedAt = DateTimeOffset.Now.AddHours(12)
+        CreatedAt = DateTimeOffset.Now.AddHours(12),
+        UpdatedAt = DateTimeOffset.Now
     };
 
     public static readonly CardRequest FixtureCardRequestForUpdate = new()
     {
         Id = Guid.NewGuid(),
-        CustomerName = "Gavriila Nikolaeva",
-        TargetAddress = "cab. 301",
+        CustomerName = "Luchinin A. I.",
+        TargetAddress = "cab. 300",
         PatientFullName = "Yevgeniya Vinogradova",
         PatientBirthDate = new DateOnly(2005, 1, 14),
-        Description = "this is fixture card request for update",
+        Description = "Volkonskaya Yuliya Porfirovna",
         Status = CardRequestStatus.Created,
         Priority = CardRequestPriority.Urgently,
         CreatedAt = DateTimeOffset.Now,

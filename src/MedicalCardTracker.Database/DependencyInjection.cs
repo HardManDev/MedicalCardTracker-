@@ -15,9 +15,7 @@ public static class DependencyInjection
         services, IConfiguration configuration)
     {
         services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            options.UseSqlite(configuration["DbConnectionUrl"]);
-        });
+            options.UseSqlite(configuration["DbConnectionUrl"]));
         services.AddScoped<IApplicationDbContext>(provider =>
             provider.GetService<ApplicationDbContext>()!);
         return services;
