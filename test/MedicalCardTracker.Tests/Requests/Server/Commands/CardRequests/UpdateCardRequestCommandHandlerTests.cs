@@ -24,10 +24,10 @@ public class UpdateCardRequestCommandHandlerTests : BaseTestsRequestHandler
     [Fact]
     public async Task UpdateCardRequestCommandHandler_Success()
     {
-        const string testCustomerName = "Yaromir Semenov";
-        const string testTargetAddress = "cab. 404";
-        const string testPatientFullName = "Koloda Tarasov";
-        var testPatientBirthDate = new DateOnly(2000, 12, 30);
+        const string testCustomerName = "Elesin P. H.";
+        const string testTargetAddress = "cab. 505";
+        const string testPatientFullName = "Zhivopiscev Diomid Mitrofanievich";
+        var testPatientBirthDate = new DateOnly(1970, 8, 14);
         const string testDescription = "this is test card request";
         const CardRequestPriority testPriority = CardRequestPriority.Urgently;
 

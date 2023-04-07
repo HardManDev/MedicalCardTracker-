@@ -7,6 +7,7 @@ using MedicalCardTracker.Application.Models.ViewModels;
 
 namespace MedicalCardTracker.Application.Queries.CardRequests.GetCardRequestCollection;
 
+// TODO: Add sorting.
 public class GetCardRequestCollectionQuery : IRequest<CardRequestCollectionVm>
 {
     public uint Page { get; set; } = 0;

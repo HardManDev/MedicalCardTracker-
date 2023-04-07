@@ -13,16 +13,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MedicalCardTracker.Tests;
 
-public class Startup
+public static class Startup
 {
     public static void ConfigureServices(IServiceCollection services)
     {
         services.AddApplication();
 
         services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            options.UseInMemoryDatabase(Guid.NewGuid().ToString());
-        });
+            options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
 
         services.AddScoped<IApplicationDbContext>(provider =>
             provider.GetRequiredService<ApplicationDbContext>());

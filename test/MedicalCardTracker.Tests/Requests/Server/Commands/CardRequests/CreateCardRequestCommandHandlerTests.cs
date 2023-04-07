@@ -22,9 +22,9 @@ public class CreateCardRequestCommandHandlerTests : BaseTestsRequestHandler
     [Fact]
     public async Task CreateCardRequestCommandHandler_Success()
     {
-        const string testCustomerName = "Yaromir Semenov";
+        const string testCustomerName = "Shavirin S. V.";
         const string testTargetAddress = "cab. 404";
-        const string testPatientFullName = "Koloda Tarasov";
+        const string testPatientFullName = "Zhivopiscev Diomid Mitrofanievich";
         var testPatientBirthDate = new DateOnly(2000, 12, 30);
         const string testDescription = "this is test card request";
         const CardRequestPriority testPriority = CardRequestPriority.Urgently;

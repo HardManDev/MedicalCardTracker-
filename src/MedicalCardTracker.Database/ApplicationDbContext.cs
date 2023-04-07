@@ -12,7 +12,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
+    // TODO: Fix this unsafe code.
         => Database.EnsureCreated();
 
     public DbSet<CardRequest> CardRequests { get; set; } = null!;
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // TODO: Add configuration logic for database entities.
+        => base.OnConfiguring(optionsBuilder);
 }
