@@ -3,24 +3,23 @@
 // Please see the LICENSE file for more information.
 
 using System.Text.Json.Serialization;
-using MediatR;
 using MedicalCardTracker.Application.Convertors;
-using MedicalCardTracker.Application.Models.ViewModels;
 using MedicalCardTracker.Domain.Enums;
 
-namespace MedicalCardTracker.Application.Commands.CardRequests.CreateCardRequest;
+namespace MedicalCardTracker.Server.Models.Dto;
 
-public class CreateCardRequestCommand : IRequest<CardRequestVm>
+public class UpdateCardRequestCommandDto
 {
-    public string CustomerName { get; set; } = null!;
-    public string TargetAddress { get; set; } = null!;
+    public string? CustomerName { get; set; }
+    public string? TargetAddress { get; set; }
 
-    public string PatientFullName { get; set; } = null!;
+    public string? PatientFullName { get; set; }
 
     [JsonConverter(typeof(DateOnlyConverter))]
     public DateOnly? PatientBirthDate { get; set; }
 
     public string? Description { get; set; }
 
-    public CardRequestPriority Priority { get; set; }
+    public CardRequestStatus? Status { get; set; }
+    public CardRequestPriority? Priority { get; set; }
 }
