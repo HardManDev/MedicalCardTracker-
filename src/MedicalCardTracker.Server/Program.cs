@@ -3,10 +3,10 @@
 // Please see the LICENSE file for more information.
 
 using System.Reflection;
-using MedicalCardTracker.Application;
 using MedicalCardTracker.Application.Interfaces;
 using MedicalCardTracker.Application.Mappings;
 using MedicalCardTracker.Database;
+using MedicalCardTracker.Server.Application;
 
 namespace MedicalCardTracker.Server;
 
@@ -45,13 +45,14 @@ internal static class Program
 
     private static IServiceCollection ConfigureService(IServiceCollection services)
     {
-        services.AddApplication();
         services.AddDatabase(_builder.Configuration);
         services.AddAutoMapper(config =>
         {
             config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
             config.AddProfile(new AssemblyMappingProfile(typeof(IMapWith<>).Assembly));
         });
+        services.AddMediatR(config =>
+            config.RegisterServicesFromAssembly(typeof(BaseRequestHandler).Assembly));
 
         services.AddControllers();
         services.AddWindowsService();

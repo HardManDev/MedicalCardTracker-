@@ -2,7 +2,9 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
+using System.Text.Json.Serialization;
 using AutoMapper;
+using MedicalCardTracker.Application.Convertors;
 using MedicalCardTracker.Application.Interfaces;
 using MedicalCardTracker.Domain.Entities;
 using MedicalCardTracker.Domain.Enums;
@@ -17,6 +19,8 @@ public class CardRequestVm : IMapWith<CardRequest>
     public string TargetAddress { get; set; } = null!;
 
     public string PatientFullName { get; set; } = null!;
+
+    [JsonConverter(typeof(DateOnlyConverter))]
     public DateOnly? PatientBirthDate { get; set; }
 
     public string? Description { get; set; }
