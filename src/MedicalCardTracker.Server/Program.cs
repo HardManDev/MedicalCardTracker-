@@ -35,6 +35,7 @@ internal static class Program
     private static IServiceCollection ConfigureService(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddWindowsService();
 
         services.AddSwaggerGen();
         services.AddEndpointsApiExplorer();
