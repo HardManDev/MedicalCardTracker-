@@ -3,7 +3,9 @@
 // Please see the LICENSE file for more information.
 
 using MediatR;
+using MedicalCardTracker.Server.Hubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace MedicalCardTracker.Server.Controllers;
 
@@ -12,6 +14,11 @@ namespace MedicalCardTracker.Server.Controllers;
 public abstract class BaseController : ControllerBase
 {
     private IMediator _mediator = null!;
+
+    protected BaseController(IHubContext<NotificationHub> notificationHubContext)
+        => NotificationHubContext = notificationHubContext;
+
+    protected IHubContext<NotificationHub> NotificationHubContext { get; }
 
     protected IMediator Mediator =>
         _mediator ??= HttpContext.RequestServices.GetRequiredService<IMediator>();

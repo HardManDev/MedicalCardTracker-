@@ -7,6 +7,7 @@ using MedicalCardTracker.Application.Interfaces;
 using MedicalCardTracker.Application.Mappings;
 using MedicalCardTracker.Database;
 using MedicalCardTracker.Server.Application;
+using MedicalCardTracker.Server.Hubs;
 
 namespace MedicalCardTracker.Server;
 
@@ -29,6 +30,7 @@ internal static class Program
 
         _app.MapControllers();
 
+        _app.MapHub<NotificationHub>("/notification");
 
         if (_app.Environment.IsDevelopment())
         {
@@ -54,6 +56,7 @@ internal static class Program
         services.AddMediatR(config =>
             config.RegisterServicesFromAssembly(typeof(BaseRequestHandler).Assembly));
 
+        services.AddSignalR();
         services.AddControllers();
         services.AddWindowsService();
 
