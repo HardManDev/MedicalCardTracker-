@@ -8,6 +8,8 @@ using MedicalCardTracker.Application.Mappings;
 using MedicalCardTracker.Database;
 using MedicalCardTracker.Server.Application;
 using MedicalCardTracker.Server.Hubs;
+using Serilog;
+using Serilog.Events;
 
 namespace MedicalCardTracker.Server;
 
@@ -16,21 +18,24 @@ internal static class Program
     private static WebApplication _app = null!;
     private static WebApplicationBuilder _builder = null!;
 
-    public static void Main(string[] args)
+    public static void Main(string[] args) => Startup(args);
+
+    private static void Startup(string[] args)
     {
+        ConfigureLogger();
+
         _builder = WebApplication.CreateBuilder(args);
+        _builder.Host.UseSerilog();
 
         ConfigureService(_builder.Services);
 
+
         _app = _builder.Build();
 
-        _app.UseHttpsRedirection();
-
-        _app.UseAuthorization();
-
-        _app.MapControllers();
-
         _app.MapHub<NotificationHub>("/notification");
+        _app.MapControllers();
+        _app.UseAuthorization();
+        _app.UseHttpsRedirection();
 
         if (_app.Environment.IsDevelopment())
         {
@@ -45,7 +50,24 @@ internal static class Program
         }
     }
 
-    private static IServiceCollection ConfigureService(IServiceCollection services)
+    private static void ConfigureLogger()
+    {
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command",
+                LogEventLevel.Warning)
+            .WriteTo.Console(outputTemplate:
+                "{Timestamp:dd.MM.yyyy HH:mm:ss} [{Level:u4}] {Message}{NewLine}{Exception}")
+#if !DEBUG
+            .WriteTo.File($"logs/{DateTime.UtcNow:yyyy-MM-dd}.log",
+                outputTemplate: "{Timestamp:dd.MM.yyyy HH:mm:ss} [{Level:u4}] {Message}{NewLine}{Exception}",
+                rollingInterval: RollingInterval.Day,
+                shared: true,
+                retainedFileCountLimit: 15)
+#endif
+            .CreateLogger();
+    }
+
+    private static void ConfigureService(IServiceCollection services)
     {
         services.AddDatabase(_builder.Configuration);
         services.AddAutoMapper(config =>
@@ -62,7 +84,5 @@ internal static class Program
 
         services.AddSwaggerGen();
         services.AddEndpointsApiExplorer();
-
-        return services;
     }
 }
