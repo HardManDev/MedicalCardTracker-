@@ -9,18 +9,36 @@ using MedicalCardTracker.Application.Models.ViewModels;
 using MedicalCardTracker.Application.Queries.CardRequests.GetCardRequest;
 using MedicalCardTracker.Application.Queries.CardRequests.GetCardRequestCollection;
 using MedicalCardTracker.Server.Application.Exceptions;
+using MedicalCardTracker.Server.Hubs;
 using MedicalCardTracker.Server.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace MedicalCardTracker.Server.Controllers;
 
 public class CardRequestController : BaseController
 {
+    public CardRequestController(IHubContext<NotificationHub> notificationHubContext)
+        : base(notificationHubContext)
+    {
+    }
+
     [HttpGet]
     public async Task<ActionResult<CardRequestVm>> Get(
         [FromQuery] GetCardRequestQuery request,
-        CancellationToken cancellationToken
-    ) => await Mediator.Send(request, cancellationToken);
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await Mediator.Send(request, cancellationToken);
+        }
+        catch (Exception e)
+        {
+            if (e.GetType() == typeof(EntityNotFoundException)) return NotFound();
+        }
+
+        return BadRequest();
+    }
 
     [HttpGet]
     public async Task<ActionResult<CardRequestCollectionVm>> GetCollection(
@@ -31,8 +49,15 @@ public class CardRequestController : BaseController
     [HttpPost]
     public async Task<ActionResult<CardRequestVm>> Create(
         [FromBody] CreateCardRequestCommand request,
-        CancellationToken cancellationToken
-    ) => await Mediator.Send(request, cancellationToken);
+        CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(request, cancellationToken);
+
+        await NotificationHubContext.Clients.All
+            .SendAsync("OnCardRequestCreated", "Server", result, cancellationToken);
+
+        return result;
+    }
 
     [HttpPatch]
     public async Task<ActionResult<CardRequestVm>> Update(
@@ -54,6 +79,9 @@ public class CardRequestController : BaseController
                     Status = requestCommandDto.Status,
                     Priority = requestCommandDto.Priority
                 }, CancellationToken.None);
+
+            await NotificationHubContext.Clients.All
+                .SendAsync("OnCardRequestUpdated", "Server", result, cancellationToken);
 
             return result;
         }
@@ -77,6 +105,9 @@ public class CardRequestController : BaseController
                 {
                     Id = id
                 }, CancellationToken.None);
+
+            await NotificationHubContext.Clients.All
+                .SendAsync("OnCardRequestDeleted", "Server", id, cancellationToken);
 
             return Ok();
         }
