@@ -8,6 +8,7 @@ using MedicalCardTracker.Application.Mappings;
 using MedicalCardTracker.Database;
 using MedicalCardTracker.Server.Application;
 using MedicalCardTracker.Server.Hubs;
+using MedicalCardTracker.Server.Middlewares;
 using Serilog;
 using Serilog.Events;
 
@@ -37,6 +38,8 @@ internal static class Program
         _app.UseAuthorization();
         _app.UseHttpsRedirection();
 
+        _app.UseMiddleware<MachineFingerprintMiddleware>();
+
         if (_app.Environment.IsDevelopment())
         {
             _app.UseSwagger();
@@ -55,11 +58,15 @@ internal static class Program
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command",
                 LogEventLevel.Warning)
+            .MinimumLevel.Override("Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor",
+                LogEventLevel.Warning)
+            .MinimumLevel.Override("Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker",
+                LogEventLevel.Warning)
             .WriteTo.Console(outputTemplate:
                 "{Timestamp:dd.MM.yyyy HH:mm:ss} [{Level:u4}] {Message}{NewLine}{Exception}")
 #if !DEBUG
             .WriteTo.File($"logs/{DateTime.UtcNow:yyyy-MM-dd}.log",
-                outputTemplate: "{Timestamp:dd.MM.yyyy HH:mm:ss} [{Level:u4}] {Message}{NewLine}{Exception}",
+                outputTemplate: "{Timestamp:dd.MM.yyyy HH:mm:ss} [{Level:u4}] ({SourceContext}) {Message}{NewLine}{Exception}",
                 rollingInterval: RollingInterval.Day,
                 shared: true,
                 retainedFileCountLimit: 15)
