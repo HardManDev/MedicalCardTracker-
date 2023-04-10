@@ -6,6 +6,7 @@ using AutoMapper;
 using MedicalCardTracker.Application.Models.ViewModels;
 using MedicalCardTracker.Application.Queries.CardRequests.GetCardRequestCollection;
 using MedicalCardTracker.Server.Application.Interfaces;
+using MedicalCardTracker.Server.Application.Models.Enums;
 using MedicalCardTracker.Server.Application.Queries.CardRequests.GetCardRequestCollection;
 using Newtonsoft.Json;
 using Xunit;
