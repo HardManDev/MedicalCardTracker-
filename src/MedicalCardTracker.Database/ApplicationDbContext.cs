@@ -2,6 +2,7 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
+using MedicalCardTracker.Database.EntityTypeConfigurations;
 using MedicalCardTracker.Domain.Entities;
 using MedicalCardTracker.Server.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<CardRequest> CardRequests { get; set; } = null!;
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        // TODO: Add configuration logic for database entities.
-        => base.OnConfiguring(optionsBuilder);
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfiguration(new CardRequestConfiguration());
+        base.OnModelCreating(modelBuilder);
+    }
 }
