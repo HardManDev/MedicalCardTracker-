@@ -21,6 +21,6 @@ public class CardRequest
     public CardRequestStatus Status { get; set; }
     public CardRequestPriority Priority { get; set; }
 
-    public DateTimeOffset CreatedAt { get; set; }
-    public DateTimeOffset? UpdatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }
