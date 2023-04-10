@@ -34,7 +34,9 @@ public class GetCardRequestCollectionQueryHandlerTests : BaseTestsRequestHandler
         Assert.IsType<CardRequestCollectionVm>(result);
         Assert.True(result is { TotalCount: 3, CardRequests.Count: 3 });
         Assert.Equal(JsonConvert.SerializeObject(result.CardRequests),
-            JsonConvert.SerializeObject(DbContext.CardRequests.ToList()));
+            JsonConvert.SerializeObject(DbContext.CardRequests
+                .OrderBy(item => item.CreatedAt)
+                .ToList()));
     }
 
     [Fact]
@@ -48,7 +50,9 @@ public class GetCardRequestCollectionQueryHandlerTests : BaseTestsRequestHandler
         Assert.IsType<CardRequestCollectionVm>(result);
         Assert.True(result is { TotalCount: 3, CardRequests.Count: 3 });
         Assert.Equal(JsonConvert.SerializeObject(result.CardRequests),
-            JsonConvert.SerializeObject(DbContext.CardRequests.ToList()));
+            JsonConvert.SerializeObject(DbContext.CardRequests
+                .OrderBy(item => item.CreatedAt)
+                .ToList()));
     }
 
     [Fact]
@@ -65,7 +69,10 @@ public class GetCardRequestCollectionQueryHandlerTests : BaseTestsRequestHandler
         Assert.IsType<CardRequestCollectionVm>(result);
         Assert.True(result is { TotalCount: 3, CardRequests.Count: 2 });
         Assert.Equal(JsonConvert.SerializeObject(result.CardRequests),
-            JsonConvert.SerializeObject(DbContext.CardRequests.Take(2).ToList()));
+            JsonConvert.SerializeObject(DbContext.CardRequests
+                .OrderBy(item => item.CreatedAt)
+                .Take(2)
+                .ToList()));
     }
 
     [Fact]
@@ -82,7 +89,10 @@ public class GetCardRequestCollectionQueryHandlerTests : BaseTestsRequestHandler
         Assert.IsType<CardRequestCollectionVm>(result);
         Assert.True(result is { TotalCount: 3, CardRequests.Count: 0 });
         Assert.Equal(JsonConvert.SerializeObject(result.CardRequests),
-            JsonConvert.SerializeObject(DbContext.CardRequests.Skip(100).ToList()));
+            JsonConvert.SerializeObject(DbContext.CardRequests
+                .OrderBy(item => item.CreatedAt)
+                .Skip(100)
+                .ToList()));
     }
 
     [Fact]
@@ -100,6 +110,79 @@ public class GetCardRequestCollectionQueryHandlerTests : BaseTestsRequestHandler
         Assert.IsType<CardRequestCollectionVm>(result);
         Assert.True(result is { TotalCount: 3, CardRequests.Count: 1 });
         Assert.Equal(JsonConvert.SerializeObject(result.CardRequests),
-            JsonConvert.SerializeObject(DbContext.CardRequests.Skip(2).Take(2).ToList()));
+            JsonConvert.SerializeObject(DbContext.CardRequests
+                .OrderBy(item => item.CreatedAt)
+                .Skip(2)
+                .Take(2)
+                .ToList()));
+    }
+
+    [Fact]
+    public async Task GetCardRequestCollectionQueryHandler_SuccessWithTargetAddress()
+    {
+        var handler = new GetCardRequestCollectionQueryHandler(DbContext, Mapper);
+
+        var result = await handler.Handle(
+            new GetCardRequestCollectionQuery
+            {
+                TargetAddress = "cab. 200"
+            }, CancellationToken.None);
+
+        Assert.IsType<CardRequestCollectionVm>(result);
+        // "CardRequests.Count: 1" because at this point in this test, one record from the database will already be deleted.
+        Assert.True(result
+            is { TotalCount: 3, CardRequests.Count: 1 }
+            or { TotalCount: 3, CardRequests.Count: 2 });
+        Assert.Equal(JsonConvert.SerializeObject(result.CardRequests),
+            JsonConvert.SerializeObject(DbContext.CardRequests
+                .Where(item =>
+                    item.TargetAddress == "cab. 200")
+                .OrderBy(item => item.CreatedAt)
+                .ToList()));
+    }
+
+    [Fact]
+    public async Task GetCardRequestCollectionQueryHandler_SuccessWithOrderBy()
+    {
+        var handler = new GetCardRequestCollectionQueryHandler(DbContext, Mapper);
+
+        var result = await handler.Handle(
+            new GetCardRequestCollectionQuery
+            {
+                OrderBy = OrderBy.Descending
+            }, CancellationToken.None);
+
+        Assert.IsType<CardRequestCollectionVm>(result);
+        Assert.True(result is { TotalCount: 3 });
+        Assert.Equal(JsonConvert.SerializeObject(result.CardRequests),
+            JsonConvert.SerializeObject(DbContext.CardRequests
+                .OrderByDescending(item => item.CreatedAt)
+                .ToList()));
+    }
+
+    [Fact]
+    public async Task GetCardRequestCollectionQueryHandler_SuccessWithAll()
+    {
+        var handler = new GetCardRequestCollectionQueryHandler(DbContext, Mapper);
+
+        var result = await handler.Handle(
+            new GetCardRequestCollectionQuery
+            {
+                Page = 1,
+                Count = 1,
+                OrderBy = OrderBy.Descending,
+                TargetAddress = "cab. 200"
+            }, CancellationToken.None);
+
+        Assert.IsType<CardRequestCollectionVm>(result);
+        Assert.True(result is { TotalCount: 3 });
+        Assert.Equal(JsonConvert.SerializeObject(result.CardRequests),
+            JsonConvert.SerializeObject(DbContext.CardRequests
+                .Where(item =>
+                    item.TargetAddress == "cab. 200")
+                .OrderByDescending(item => item.CreatedAt)
+                .Skip(1)
+                .Take(1)
+                .ToList()));
     }
 }
