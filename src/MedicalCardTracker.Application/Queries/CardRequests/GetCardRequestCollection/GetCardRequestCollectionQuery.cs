@@ -4,6 +4,7 @@
 
 using MediatR;
 using MedicalCardTracker.Application.Models.ViewModels;
+using MedicalCardTracker.Server.Application.Models.Enums;
 
 namespace MedicalCardTracker.Application.Queries.CardRequests.GetCardRequestCollection;
 
@@ -12,4 +13,7 @@ public class GetCardRequestCollectionQuery : IRequest<CardRequestCollectionVm>
 {
     public uint Page { get; set; } = 0;
     public uint Count { get; set; } = 100;
+
+    public OrderBy OrderBy { get; set; } = OrderBy.Ascending;
+    public string? TargetAddress { get; set; }
 }
