@@ -9,6 +9,7 @@ using MedicalCardTracker.Application.Models.ViewModels;
 using MedicalCardTracker.Application.Queries.CardRequests.GetCardRequestCollection;
 using MedicalCardTracker.Domain.Entities;
 using MedicalCardTracker.Server.Application.Interfaces;
+using MedicalCardTracker.Server.Application.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicalCardTracker.Server.Application.Queries.CardRequests.GetCardRequestCollection;
@@ -24,16 +25,25 @@ public class GetCardRequestCollectionQueryHandler
     public async Task<CardRequestCollectionVm> Handle(GetCardRequestCollectionQuery request,
         CancellationToken cancellationToken)
     {
-        var targetCardRequestCollection =
-            await DbContext.CardRequests
-                .Skip((int)(request.Page * request.Count))
-                .Take((int)request.Count)
-                .ToListAsync(cancellationToken);
+        var query = DbContext.CardRequests.AsQueryable();
+
+        query = request.OrderBy == OrderBy.Ascending
+            ? query.OrderBy(item => item.CreatedAt)
+            : query.OrderByDescending(item => item.CreatedAt);
+
+        if (request.TargetAddress != null)
+            query = query.Where(item => item.TargetAddress == request.TargetAddress);
+
+        var totalCount = await DbContext.CardRequests.CountAsync(cancellationToken);
+        var targetCardRequestCollection = await query
+            .Skip((int)(request.Page * request.Count))
+            .Take((int)request.Count)
+            .ToListAsync(cancellationToken);
 
         return Mapper.Map<CardRequestCollectionVm>(
             new VmCollection<CardRequest>
             {
-                TotalCount = (uint)DbContext.CardRequests.Count(),
+                TotalCount = (uint)totalCount,
                 Collection = targetCardRequestCollection
             });
     }
