@@ -37,7 +37,7 @@ public class UpdateCardRequestCommandHandler
         targetCardRequest.Status = request.Status ?? targetCardRequest.Status;
         targetCardRequest.Priority = request.Priority ?? targetCardRequest.Priority;
 
-        targetCardRequest.UpdatedAt = DateTimeOffset.Now;
+        targetCardRequest.UpdatedAt = DateTime.Now;
 
         await DbContext.SaveChangesAsync(cancellationToken);
 

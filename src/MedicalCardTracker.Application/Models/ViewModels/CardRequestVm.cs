@@ -28,8 +28,8 @@ public class CardRequestVm : IMapWith<CardRequest>
     public CardRequestStatus Status { get; set; }
     public CardRequestPriority Priority { get; set; }
 
-    public DateTimeOffset CreatedAt { get; set; }
-    public DateTimeOffset? UpdatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 
     public void Mapping(Profile profile)
         => profile.CreateMap<CardRequest, CardRequestVm>();

@@ -33,7 +33,7 @@ public class CreateCardRequestCommandHandler
             Description = request.Description,
             Status = CardRequestStatus.Created,
             Priority = request.Priority,
-            CreatedAt = DateTimeOffset.Now,
+            CreatedAt = DateTime.Now,
             UpdatedAt = null
         };
 

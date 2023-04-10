@@ -19,7 +19,7 @@ public static class FixtureCardRequests
         Description = "this is fixture card request",
         Status = CardRequestStatus.Created,
         Priority = CardRequestPriority.Urgently,
-        CreatedAt = DateTimeOffset.Now,
+        CreatedAt = DateTime.Now,
         UpdatedAt = null
     };
 
@@ -33,21 +33,21 @@ public static class FixtureCardRequests
         Description = "this is fixture card request for delete",
         Status = CardRequestStatus.Completed,
         Priority = CardRequestPriority.UnUrgently,
-        CreatedAt = DateTimeOffset.Now.AddHours(12),
-        UpdatedAt = DateTimeOffset.Now
+        CreatedAt = DateTime.Now.AddHours(12),
+        UpdatedAt = DateTime.Now
     };
 
     public static readonly CardRequest FixtureCardRequestForUpdate = new()
     {
         Id = Guid.NewGuid(),
         CustomerName = "Luchinin A. I.",
-        TargetAddress = "cab. 300",
+        TargetAddress = "cab. 200",
         PatientFullName = "Yevgeniya Vinogradova",
         PatientBirthDate = new DateOnly(2005, 1, 14),
         Description = "Volkonskaya Yuliya Porfirovna",
         Status = CardRequestStatus.Created,
         Priority = CardRequestPriority.Urgently,
-        CreatedAt = DateTimeOffset.Now,
+        CreatedAt = DateTime.Now,
         UpdatedAt = null
     };
 }
