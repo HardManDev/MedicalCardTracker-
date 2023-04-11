@@ -1,4 +1,4 @@
-<!--
+﻿<!--
   - Copyright (c) 2023 Mikulchik Vladislav Alekseevich <hardman.dev@pm.me>.
   - This software is licensed under the MIT license.
   - Please see the LICENSE file for more information.
@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="7.0.0"/>
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.0"/>
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0"/>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
@@ -48,6 +49,18 @@
     <ProjectReference Include="..\MedicalCardTracker.Application\MedicalCardTracker.Application.csproj"/>
     <ProjectReference Include="..\MedicalCardTracker.Database\MedicalCardTracker.Database.csproj"/>
     <ProjectReference Include="..\MedicalCardTracker.Server.Application\MedicalCardTracker.Server.Application.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Scripts\SetupAsWindowsService.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
