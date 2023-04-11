@@ -23,13 +23,13 @@ internal static class Program
 
     private static void Startup(string[] args)
     {
+        ConfigurationSetup(args);
         ConfigureLogger();
 
         _builder = WebApplication.CreateBuilder(args);
         _builder.Host.UseSerilog();
 
         ConfigureService(_builder.Services);
-
 
         _app = _builder.Build();
 
@@ -51,6 +51,16 @@ internal static class Program
         {
             _app.Run(_builder.Configuration.GetValue<string>("Url"));
         }
+    }
+
+    private static void ConfigurationSetup(string[] args)
+    {
+        var configuration = new ConfigurationBuilder()
+            .AddCommandLine(args)
+            .Build();
+
+        if (configuration["workingDirectory"] != null)
+            Directory.SetCurrentDirectory(configuration["workingDirectory"]!);
     }
 
     private static void ConfigureLogger()
