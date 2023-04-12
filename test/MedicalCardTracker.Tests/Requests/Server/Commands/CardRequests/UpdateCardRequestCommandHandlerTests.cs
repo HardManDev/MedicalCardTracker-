@@ -3,8 +3,8 @@
 // Please see the LICENSE file for more information.
 
 using AutoMapper;
-using MedicalCardTracker.Application.Commands.CardRequests.UpdateCardRequest;
 using MedicalCardTracker.Application.Models.ViewModels;
+using MedicalCardTracker.Application.Requests.Commands.CardRequests.UpdateCardRequest;
 using MedicalCardTracker.Domain.Enums;
 using MedicalCardTracker.Server.Application.Commands.CardRequests.UpdateCardRequest;
 using MedicalCardTracker.Server.Application.Exceptions;

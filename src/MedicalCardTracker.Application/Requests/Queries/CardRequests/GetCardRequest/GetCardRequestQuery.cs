@@ -3,10 +3,11 @@
 // Please see the LICENSE file for more information.
 
 using MediatR;
+using MedicalCardTracker.Application.Models.ViewModels;
 
-namespace MedicalCardTracker.Application.Commands.CardRequests.DeleteCardRequest;
+namespace MedicalCardTracker.Application.Requests.Queries.CardRequests.GetCardRequest;
 
-public class DeleteCardRequestCommand : IRequest
+public class GetCardRequestQuery : IRequest<CardRequestVm>
 {
     public Guid Id { get; set; }
 }

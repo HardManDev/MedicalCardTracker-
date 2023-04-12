@@ -4,8 +4,8 @@
 
 using AutoMapper;
 using MediatR;
-using MedicalCardTracker.Application.Commands.CardRequests.UpdateCardRequest;
 using MedicalCardTracker.Application.Models.ViewModels;
+using MedicalCardTracker.Application.Requests.Commands.CardRequests.UpdateCardRequest;
 using MedicalCardTracker.Domain.Entities;
 using MedicalCardTracker.Server.Application.Exceptions;
 using MedicalCardTracker.Server.Application.Interfaces;

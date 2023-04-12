@@ -6,7 +6,7 @@ using AutoMapper;
 using MediatR;
 using MedicalCardTracker.Application.Models;
 using MedicalCardTracker.Application.Models.ViewModels;
-using MedicalCardTracker.Application.Queries.CardRequests.GetCardRequestCollection;
+using MedicalCardTracker.Application.Requests.Queries.CardRequests.GetCardRequestCollection;
 using MedicalCardTracker.Domain.Entities;
 using MedicalCardTracker.Server.Application.Interfaces;
 using MedicalCardTracker.Server.Application.Models.Enums;

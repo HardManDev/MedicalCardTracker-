@@ -3,7 +3,7 @@
 // Please see the LICENSE file for more information.
 
 using AutoMapper;
-using MedicalCardTracker.Application.Commands.CardRequests.DeleteCardRequest;
+using MedicalCardTracker.Application.Requests.Commands.CardRequests.DeleteCardRequest;
 using MedicalCardTracker.Server.Application.Commands.CardRequests.DeleteCardRequest;
 using MedicalCardTracker.Server.Application.Exceptions;
 using MedicalCardTracker.Server.Application.Interfaces;

@@ -6,9 +6,8 @@ using MediatR;
 using MedicalCardTracker.Application.Models.ViewModels;
 using MedicalCardTracker.Server.Application.Models.Enums;
 
-namespace MedicalCardTracker.Application.Queries.CardRequests.GetCardRequestCollection;
+namespace MedicalCardTracker.Application.Requests.Queries.CardRequests.GetCardRequestCollection;
 
-// TODO: Add sorting.
 public class GetCardRequestCollectionQuery : IRequest<CardRequestCollectionVm>
 {
     public uint Page { get; set; } = 0;

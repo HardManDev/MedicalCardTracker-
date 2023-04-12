@@ -4,7 +4,7 @@
 
 using AutoMapper;
 using MediatR;
-using MedicalCardTracker.Application.Commands.CardRequests.DeleteCardRequest;
+using MedicalCardTracker.Application.Requests.Commands.CardRequests.DeleteCardRequest;
 using MedicalCardTracker.Domain.Entities;
 using MedicalCardTracker.Server.Application.Exceptions;
 using MedicalCardTracker.Server.Application.Interfaces;

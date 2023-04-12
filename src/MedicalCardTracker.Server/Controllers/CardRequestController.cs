@@ -2,12 +2,12 @@
 // This software is licensed under the MIT license.
 // Please see the LICENSE file for more information.
 
-using MedicalCardTracker.Application.Commands.CardRequests.CreateCardRequest;
-using MedicalCardTracker.Application.Commands.CardRequests.DeleteCardRequest;
-using MedicalCardTracker.Application.Commands.CardRequests.UpdateCardRequest;
 using MedicalCardTracker.Application.Models.ViewModels;
-using MedicalCardTracker.Application.Queries.CardRequests.GetCardRequest;
-using MedicalCardTracker.Application.Queries.CardRequests.GetCardRequestCollection;
+using MedicalCardTracker.Application.Requests.Commands.CardRequests.CreateCardRequest;
+using MedicalCardTracker.Application.Requests.Commands.CardRequests.DeleteCardRequest;
+using MedicalCardTracker.Application.Requests.Commands.CardRequests.UpdateCardRequest;
+using MedicalCardTracker.Application.Requests.Queries.CardRequests.GetCardRequest;
+using MedicalCardTracker.Application.Requests.Queries.CardRequests.GetCardRequestCollection;
 using MedicalCardTracker.Server.Application.Exceptions;
 using MedicalCardTracker.Server.Hubs;
 using MedicalCardTracker.Server.Models.Dto;

@@ -5,7 +5,7 @@
 using AutoMapper;
 using MediatR;
 using MedicalCardTracker.Application.Models.ViewModels;
-using MedicalCardTracker.Application.Queries.CardRequests.GetCardRequest;
+using MedicalCardTracker.Application.Requests.Queries.CardRequests.GetCardRequest;
 using MedicalCardTracker.Domain.Entities;
 using MedicalCardTracker.Server.Application.Exceptions;
 using MedicalCardTracker.Server.Application.Interfaces;

@@ -8,7 +8,7 @@ using MedicalCardTracker.Application.Convertors;
 using MedicalCardTracker.Application.Models.ViewModels;
 using MedicalCardTracker.Domain.Enums;
 
-namespace MedicalCardTracker.Application.Commands.CardRequests.CreateCardRequest;
+namespace MedicalCardTracker.Application.Requests.Commands.CardRequests.CreateCardRequest;
 
 public class CreateCardRequestCommand : IRequest<CardRequestVm>
 {

@@ -4,8 +4,8 @@
 
 using AutoMapper;
 using MediatR;
-using MedicalCardTracker.Application.Commands.CardRequests.CreateCardRequest;
 using MedicalCardTracker.Application.Models.ViewModels;
+using MedicalCardTracker.Application.Requests.Commands.CardRequests.CreateCardRequest;
 using MedicalCardTracker.Domain.Entities;
 using MedicalCardTracker.Domain.Enums;
 using MedicalCardTracker.Server.Application.Interfaces;

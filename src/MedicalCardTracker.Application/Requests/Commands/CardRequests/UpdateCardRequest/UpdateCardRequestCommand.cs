@@ -6,7 +6,7 @@ using MediatR;
 using MedicalCardTracker.Application.Models.ViewModels;
 using MedicalCardTracker.Domain.Enums;
 
-namespace MedicalCardTracker.Application.Commands.CardRequests.UpdateCardRequest;
+namespace MedicalCardTracker.Application.Requests.Commands.CardRequests.UpdateCardRequest;
 
 public class UpdateCardRequestCommand : IRequest<CardRequestVm>
 {
